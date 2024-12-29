@@ -1,0 +1,28 @@
+<%- include('partials/header') %>
+
+<div class="row mt-4">
+
+    <div class="col-6">
+        <h2 class="mb-2">Remember Writing ?</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus officiis rerum aspernatur corporis atque odio accusantium quidem, laudantium cumque! Quaerat suscipit hic molestiae, ipsam dolor voluptate nostrum doloribus ea laborum?</p>
+    </div>
+    <div class="col-6">
+        <form action="/register" method="POST">
+            <div class="mb-3">
+                <label for="" class="form-label">Username</label>
+                <input name="username" type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Email</label>
+                <input name="email" type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Password</label>
+                <input name="password" type="text" class="form-control">
+            </div>
+            <button class="btn btn-success">Sign for an App</button>
+        </form>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
