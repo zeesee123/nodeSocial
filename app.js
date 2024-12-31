@@ -7,11 +7,19 @@ const session=require('express-session');
 
 let sessionOptions=session({
     secret:"javalele",
-    store:mongostore.create({client:getClient()}),
+    store:mongostore.create({
+        client: getClient(),
+        dbName: 'ComplexApp', // Ensure this matches your intended DB
+        collectionName: 'sessions', // Optional, defaults to "sessions"
+        ttl: 14 * 24 * 60 * 60, // Expiration time (14 days by default)
+        autoRemove: 'native', // Use native MongoDB TTL
+    }),
     resave:false,
     saveUninitialized:false,
     cookie:{secure:false}
-})
+});
+
+console.log('this is the client',getClient());
 console.log('this is branch two');
 app.use(sessionOptions);
 

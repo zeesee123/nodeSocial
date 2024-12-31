@@ -30,7 +30,11 @@ exports.login=function(req,res){
         req.session.save(function(){
             res.redirect('/');
         })
-    }).catch((er)=>{res.send(er)});
+    }).catch((er)=>{
+        req.flash('errors',`sorry there is a problem:${e}`);
+        req.session.save(function(){
+            res.redirect('/');
+        })});
     // await res.send(user.login());
     // console.log(result);
     // res.send('he');
@@ -54,7 +58,9 @@ exports.logout=function(req,res){
 
     req.session.destroy();
 
-    res.send('logged out');
+    res.clearCookie('connect.sid');
+
+    res.redirect('/');
 
 
 }
