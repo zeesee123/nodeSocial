@@ -31,7 +31,7 @@ exports.login=function(req,res){
             res.redirect('/');
         })
     }).catch((er)=>{
-        req.flash('errors',`sorry there is a problem:${e}`);
+        req.flash('errors',er);
         req.session.save(function(){
             res.redirect('/');
         })});
@@ -47,7 +47,7 @@ exports.home=function(req,res){
         res.render('home-dashboard',{username:req.session.user.username});
     }else{
 
-        res.render('home-guest');
+        res.render('home-guest',{errors:req.flash('errors')});
     }
     // 
 

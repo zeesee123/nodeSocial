@@ -2,6 +2,10 @@
 
 <div class="row mt-4">
 
+    <% errors.forEach(function(m){ %>
+        <div class="alert alert-danger" role="alert"><%=m %></div>
+            <% }) %>
+        
     <div class="col-6">
         <h2 class="mb-2">Remember Writing ?</h2>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus officiis rerum aspernatur corporis atque odio accusantium quidem, laudantium cumque! Quaerat suscipit hic molestiae, ipsam dolor voluptate nostrum doloribus ea laborum?</p>
