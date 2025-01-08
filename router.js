@@ -2,6 +2,7 @@ const express=require('express');
 const router=express.Router();
 const User=require('./models/User');
 const userController=require('./controllers/userController');
+const postController=require('./controllers/postController');
 
 
 // console.log(User);
@@ -15,5 +16,7 @@ router.post('/register',userController.register);
 router.post('/login',userController.login);
 
 router.post('/logout',userController.logout);
+
+router.get('/create-post',postController.viewCreateScreen);
 
 module.exports=router;
