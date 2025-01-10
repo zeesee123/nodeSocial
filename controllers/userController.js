@@ -1,5 +1,28 @@
 const User=require('../models/User');
 
+
+
+exports.mustBeLoggedIn=function(req,res,next){
+
+    if(req.session.user){
+        
+        next();
+
+    }else{
+
+        req.flash('errors','you must be logged in');
+        
+        req.session.save(function(){
+
+            res.redirect('/');
+        });
+    }
+
+}
+
+// above is a middleware to check whether someone is logged in or not
+
+
 exports.register=function(req,res){
 
     let user=new User(req.body);

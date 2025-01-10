@@ -2,7 +2,7 @@ const dotenv=require('dotenv');
 
 dotenv.config();
 
-
+console.log(new Date())
 
 const {getDB,connectDB}=require('./db');
 

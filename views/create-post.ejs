@@ -1,8 +1,13 @@
 <%-include('partials/header-auth')%>
 
+<% success.forEach(function(m){ %>
+    <div class="alert alert-success mt-4" role="alert"><%=m %></div>
+        <% }) %>
+
 <div class="row mt-4">
 
-    <form action="">
+    <form action="/add-post" method="POST">
+
         <div class="mb-3">
         
             <label for="" class="form-label">Title</label>
@@ -14,6 +19,9 @@
             <label for="" class="form-label">Body content</label>
             <textarea name="body" id="" class="form-control"></textarea>
         </div>
+
+        <button class="btn btn-success">post</button>
+
     </form>
 
 </div>
