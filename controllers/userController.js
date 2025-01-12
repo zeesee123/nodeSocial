@@ -77,6 +77,24 @@ exports.home=function(req,res){
 
 }
 
+exports.profile=function(req,res){
+
+    id=req.params.id||null;
+
+    User.findUser(id).then((data)=>{console.log(data);
+        
+        
+        
+        res.render('profile',{userinfo:data})}).catch((er)=>{
+        
+        console.log(er.message);
+    });
+
+    // res.render('profile');
+}
+
+
+
 exports.logout=function(req,res){
 
     req.session.destroy();

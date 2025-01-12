@@ -1,0 +1,13 @@
+<%-include('partials/header')%>
+
+<div class="row mt-4">
+
+    <h4><%=post.title%></h4>
+    <h6>Posted by <%=post.user.username%> on <%=post.createdAt%></h6>
+    <p><%=post.body%></p>
+
+</div>
+
+
+
+<%-include('partials/footer')%>

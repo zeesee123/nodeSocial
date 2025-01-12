@@ -1,5 +1,6 @@
 const Post=require('../models/Post');
 
+
 // console.log(post);
 
 exports.viewCreateScreen=(req,res)=>{
@@ -10,7 +11,7 @@ exports.viewCreateScreen=(req,res)=>{
 
 exports.addPost=(req,res)=>{
 
-    let post=new Post(req.body);
+    let post=new Post(req.body,req.session.user.id);
 
     post.create().then(function(data){
 
@@ -29,4 +30,17 @@ exports.addPost=(req,res)=>{
         console.log('this is the error ',er.message);
 
     });
+}
+
+
+exports.viewPost=function(req,res){
+
+    try{
+        Post.findSingle(req.params.id).then((data)=>{console.log(data);let user=data.userId;res.render('single-post-screen',{post:data})}).catch((er)=>{
+            console.log(er.message);
+        });
+    }catch(er){
+        console.log('error',er.message);
+        res.render('404 template');
+    }
 }

@@ -1,11 +1,13 @@
 // const validator=require('validator');
 const {getDB}=require('../db.js');
+const ObjectId=require('mongodb').ObjectId;
 
 
-let Post=function(data){
+let Post=function(data,userId){
 
     this.data=data;
     this.errors=[];
+    this.id=userId;
     this.collection=null;
 
 
@@ -47,6 +49,7 @@ Post.prototype.create=function(){
 
         if(!this.errors.length){
 
+        
 
             this.collection.insertOne(this.data);
             resolve();
@@ -75,7 +78,7 @@ Post.prototype.cleanup=function(){
         this.data.body="";
     }
 
-    this.data={title:this.data.title.trim(),body:this.data.body.trim()};
+    this.data={title:this.data.title.trim(),body:this.data.body.trim(),createdAt:new Date(),userId:new ObjectId(this.id)};
 }
 
 Post.prototype.validate=function(){
@@ -90,6 +93,47 @@ Post.prototype.validate=function(){
         this.errors.push('body is required');
 
     }
+}
+
+Post.findSingle=function(id){
+
+    console.log('this is the id',id);
+
+    return new Promise(async(resolve,reject)=>{
+
+        if(typeof(id)!="string"){
+
+            reject('id is not valid');
+        }else{
+
+            let db=getDB();
+            let post=await db.collection('posts').findOne({_id:new ObjectId(id)});
+
+            let user=await db.collection('users').findOne({_id:new ObjectId(post.userId)});
+
+            post.user=user;
+
+            console.log('this is the post',post);
+
+            if(post){
+
+                resolve(post);
+
+            }else{
+
+                reject(' there is no post as such');
+            }
+        }
+            
+            
+
+
+            
+
+        
+    })
+
+
 }
 
 

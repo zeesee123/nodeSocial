@@ -24,6 +24,11 @@ console.log('this is the client',getClient());
 console.log('this is branch two');
 app.use(sessionOptions);
 
+app.use((req,res,next)=>{
+
+    res.locals.user=req.session.user||null;
+    next();
+});
 // const User=require('./models/User');
 
 // console.log('this is the value of user',User);

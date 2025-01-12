@@ -1,6 +1,7 @@
 const validator=require('validator');
 const {getDB}=require('../db');
 const bcrypt=require('bcrypt');
+const {ObjectId}=require('mongodb');
 
 
 // const userCollection=require('../db').collection('name');
@@ -160,6 +161,27 @@ User.prototype.login=async function(){
 
     //     callback("nah");
     // }
+
+
+}
+
+User.findUser=async function(id){
+
+    let db=getDB();
+
+    let user=await db.collection('users').findOne({_id:new ObjectId(id)});
+
+    return new Promise((resolve,reject)=>{
+
+        if(user){
+
+            resolve(user);
+
+        }else{
+
+            reject('there is no such user');
+        }
+    })
 
 
 }
