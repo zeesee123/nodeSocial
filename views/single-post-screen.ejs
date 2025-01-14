@@ -2,6 +2,13 @@
 
 <div class="row mt-4">
 
+    <% if(user.id==user_id){%>
+    <div class="d-flex justify-content-end">
+        <i class="bi bi-pencil-square text-primary"></i>
+        <i class="bi bi-trash3-fill mx-2 text-danger"></i>
+    </div>
+    <%}%>
+
     <h4><%=post.title%></h4>
     <h6>Posted by <%=post.user.username%> on <%=post.createdAt%></h6>
     <p><%=post.body%></p>

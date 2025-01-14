@@ -36,7 +36,7 @@ exports.addPost=(req,res)=>{
 exports.viewPost=function(req,res){
 
     try{
-        Post.findSingle(req.params.id).then((data)=>{console.log(data);let user=data.userId;res.render('single-post-screen',{post:data})}).catch((er)=>{
+        Post.findSingle(req.params.id).then((data)=>{console.log(data);let user_id=data.userId;res.render('single-post-screen',{post:data,user_id:user_id})}).catch((er)=>{
             console.log(er.message);
         });
     }catch(er){

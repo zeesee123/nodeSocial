@@ -171,6 +171,11 @@ User.findUser=async function(id){
 
     let user=await db.collection('users').findOne({_id:new ObjectId(id)});
 
+    let posts=await db.collection('posts').find({userId:new ObjectId(id)}).toArray();
+
+    user.posts=posts||null;
+    // console.log(posts);
+
     return new Promise((resolve,reject)=>{
 
         if(user){
