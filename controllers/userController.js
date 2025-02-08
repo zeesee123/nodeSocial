@@ -47,8 +47,9 @@ exports.register=function(req,res){
 exports.login=function(req,res){
 
     let user=new User(req.body);
-    user.login().then(function(data){
-        req.session.user={id:attemptedUser._id,username:attemptedUser.username};
+    user.login().then(function(attemptedUser){
+        console.log('value of data for login is',attemptedUser);
+        req.session.user={id:attemptedUser._id,username:attemptedUser.username,posts:attemptedUser.posts};
         // res.redirect('/');
         req.session.save(function(){
             res.redirect('/');
@@ -67,7 +68,7 @@ exports.login=function(req,res){
 exports.home=function(req,res){
 
     if(req.session.user){
-        res.render('home-dashboard',{username:req.session.user.username});
+        res.render('home-dashboard',{username:req.session.user.username,posts:req.session.user.posts});
     }else{
 
         res.render('home-guest',{errors:req.flash('errors')});
@@ -81,9 +82,9 @@ exports.profile=function(req,res){
 
     id=req.params.id||null;
 
-    User.findUser(id).then((data)=>{console.log(data);
+    User.findUser(id).then((data)=>{
         
-        
+        console.log(data);
         
         res.render('profile',{userinfo:data})}).catch((er)=>{
         

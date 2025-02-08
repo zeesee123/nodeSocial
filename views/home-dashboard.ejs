@@ -2,9 +2,40 @@
 
 <div class="row mt-4">
 
+    
+    
+
     <div class="col-12">
-        <h2 class="mb-2">Hello <%-username%>, your feed is empty</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus officiis rerum aspernatur corporis atque odio accusantium quidem, laudantium cumque! Quaerat suscipit hic molestiae, ipsam dolor voluptate nostrum doloribus ea laborum?</p>
+
+        <% if(posts && posts.length>0){ %> 
+
+            <div class="list-group">
+            
+            <% posts.forEach((el)=>{ %>
+
+                
+                    
+                    <!-- <button type="button" class="list-group-item list-group-item-action active" aria-current="true"> -->
+                     <a href="/view-post/<%=el._id%>">
+                      <button type="button" class="list-group-item list-group-item-action" aria-current="true">
+                        <b><%=el.title%></b> on <%=el.createdAt%>
+                      </button>
+                     </a> 
+            <% }) %>
+
+        </div>
+                    
+
+            
+       
+        
+        <%  } else { %>
+
+            <h2 class="mb-2">Hello <%-username%>, your feed is empty</h2>
+        
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus officiis rerum aspernatur corporis atque odio accusantium quidem, laudantium cumque! Quaerat suscipit hic molestiae, ipsam dolor voluptate nostrum doloribus ea laborum?</p>
+
+        <% } %>
     </div>
     
 </div>

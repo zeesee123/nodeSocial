@@ -14,6 +14,7 @@ let User=function(data){
     this.data=data;
     this.errors=[];
     this.collection=null;
+    this.posts=null;
 }
 
 User.prototype.setUpCollection=function(){
@@ -31,6 +32,7 @@ User.prototype.setUpCollection=function(){
             }else{
 
                 this.collection=db.collection('users');
+                this.posts=db.collection('posts');
             }
 
             
@@ -133,20 +135,26 @@ User.prototype.login=async function(){
 
     return new Promise(async(resolve,reject)=>{
 
-        attemptedUser=await this.collection.findOne({username:this.data.username});
+        let attemptedUser=await this.collection.findOne({username:this.data.username});
+
+        let posts=await this.posts.find({userId:attemptedUser._id}).toArray();
+
+        attemptedUser.posts=posts;
+
+        console.log('these are the associated posts with the user',posts);
 
         console.log('this is the attempted user',attemptedUser);
 
         // if(attemptedUser && attemptedUser.password==this.data.password){
         if(attemptedUser && await bcrypt.compare(this.data.password,attemptedUser.password)){
-
+//my goal for now is to display the posts associated with the user who just logged in
            
-            
-            resolve("great");
+            resolve(attemptedUser);
+            // resolve("great");
 
         }else{
 
-            reject("nah");
+            reject("Invalid username or password");
         }
     });
 
