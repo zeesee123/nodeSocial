@@ -25,4 +25,10 @@ router.get('/view-post/:id',postController.viewPost);
 
 router.get('/profile/:id?',userController.profile);
 
+router.get('/edit-post/:id',postController.editPostscreen);
+
+router.post('/edit-post/:id',postController.editPost);
+
+
+
 module.exports=router;

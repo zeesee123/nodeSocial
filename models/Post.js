@@ -43,7 +43,7 @@ Post.prototype.create=function(){
 
     this.setupCollection();
 
-    return new Promise((resolve,reject)=>{
+    return new Promise(async(resolve,reject)=>{
         
         
 
@@ -51,7 +51,7 @@ Post.prototype.create=function(){
 
         
 
-            this.collection.insertOne(this.data);
+            await this.collection.insertOne(this.data);
             resolve();
 
         }else{
@@ -136,5 +136,91 @@ Post.findSingle=function(id){
 
 }
 
+Post.prototype.edit=function(){
+    
+    console.log('edit model thing',this.data.title);
+
+    console.log('this is the data 1 *********',this.data);
+
+    let postid=this.data.id;
+    
+
+    this.cleanup();
+    this.validate();
+
+    console.log('this is the data after validating *********&&&&&&&&&',this.data);
+
+    
+
+    this.setupCollection();
+
+    return new Promise(async(resolve,reject)=>{
+
+
+        console.log('promise thing data inside the promise*****&&&&&&&',this.data);
+
+        
+        
+        
+
+        if(!this.errors.length){
+
+            // let ele=await this.collection.findOne({_id:new ObjectId(this.data.id)});
+
+             
+
+             console.log('this is the id',this.data.id);
+             
+
+             
+
+             await this.collection.updateOne({_id:new ObjectId(postid)},{$set:{title:this.data.title,body:this.data.body}});
+
+             
+
+            
+
+            // post=this.collection.updateOne({_id:}this.data);
+            resolve("done");
+
+        }else{
+
+            this.errors.push('please try again later');
+            reject(this.errors);
+
+
+        }
+    });
+}
+
+
+Post.findUserPosts=function(id){
+
+    return new Promise(async(resolve,reject)=>{
+
+        if(typeof(id)!="string"){
+
+            reject('wrong');
+
+        }else{
+
+            let db=getDB();
+
+            let posts=await db.collection('posts').find({userId:new ObjectId(id)}).toArray();
+
+            
+            if(posts){
+
+                resolve(posts);
+
+            }else{
+
+                reject('there are no posts');
+            }
+        }
+    });
+
+    
+}
 
 module.exports=Post;

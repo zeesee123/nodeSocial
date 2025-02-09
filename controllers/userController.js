@@ -1,4 +1,5 @@
 const User=require('../models/User');
+const Post=require('../models/Post');
 
 
 
@@ -68,7 +69,20 @@ exports.login=function(req,res){
 exports.home=function(req,res){
 
     if(req.session.user){
-        res.render('home-dashboard',{username:req.session.user.username,posts:req.session.user.posts});
+        //need to always load the posts
+
+        Post.findUserPosts(req.session.user.id).then((data)=>{
+
+
+            let posts=data||[];
+
+            res.render('home-dashboard',{username:req.session.user.username,posts});
+        }).catch((er)=>{
+
+            console.log(er.message);
+        })
+        
+        
     }else{
 
         res.render('home-guest',{errors:req.flash('errors')});

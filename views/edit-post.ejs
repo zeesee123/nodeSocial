@@ -1,0 +1,31 @@
+
+
+<%-include('partials/header')%>
+
+<% success.forEach(function(m){ %>
+    <div class="alert alert-success mt-4" role="alert"><%=m %></div>
+        <% }) %>
+
+<div class="row mt-4">
+
+    <form action="/edit-post/<%=postdata._id%>" method="POST">
+
+        <div class="mb-3">
+        
+            <label for="" class="form-label">Title</label>
+            <input type="text" name="title" class="form-control" value="<%=postdata.title%>">
+
+        </div>
+
+        <div class="mb-3">
+            <label for="" class="form-label">Body content</label>
+            <textarea name="body"  class="form-control"><%=postdata.body%></textarea>
+        </div>
+
+        <button class="btn btn-success">update</button>
+
+    </form>
+
+</div>
+
+<%-include('partials/footer')%>
